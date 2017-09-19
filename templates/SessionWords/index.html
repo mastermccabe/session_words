@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+  <script src=" https://code.jquery.com/jquery-3.2.1.slim.min.js "></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js ">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js">
+  </script>
+  <meta charset="utf-8">
+  <title>random word!</title>
+</head>
+
+<body>
+  <div id="wrapper" class="container-fluid  align-top">
+    <div id="header_box" class="container-fluid text-center col-md-5 border col-md-offset-5">
+
+
+      <!-- <p> Random Word (attempt #{{request.session.counter}} ) </p> -->
+    </div>
+    <div id="left_box" class="row container-fluid text-center col-md-5 border col-md-offset-5">
+      <div class="container-fluid ">
+
+      </div>
+      <form action='addword' method="post" class="container-fluid text-left align-top">
+        <h3> Add a new word </h3>
+        <input type='text' name="text_field"><br> {% csrf_token %}
+        <input type="radio" name="color" value="Red" checked> Red<br>
+        <input type="radio" name="color" value="Green"> Green<br>
+        <input type="radio" name="color" value="Blue"> Blue<br>
+        <input type="checkbox" name="big" value="big"> show in BIG fonts!<br> {% csrf_token %} <input type="submit" value="Add to session" class="btn-primary">
+      </form>
+
+
+    </div>
+    <br>
+    <div id="right_box" class="row container-fluid text-center col-span-6 col-pull-right align-top border">
+      {% csrf_token %} <br> {% for e in request.session.deploy %}
+      <div id="container_text" class="container-fluid align-top">
+        <h{{e.big}} style="color:{{ e.color }}">{{e.words}}</h{{e.big}}}}><br>
+      </div>
+
+      {% endfor %}
+
+      <form action='clearsession' method="post" class=" pull-right col-sm-4 container-fluid">
+        {% csrf_token %}
+        <input type="submit" value="Clear Session" class="btn-primary">
+      </form>
+    </div>
+
+  </div>
+
+</body>
+
+</html>
